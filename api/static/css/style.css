@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css?family=Inter');
+
+.btn-primary{
+    background-color: #0d99ff;
+    color: white;
+    border: #0d99ff 0.05em solid;
+}
+.btn-primary:hover{
+    background-color: #FFFFFF;
+    color: #0d99ff;
+}
+
+a{
+    color: #22ADD8;
+    text-decoration: none;
+}
+
+h1,h3,h5,h6{
+    font-family: 'Inter';
+
+}
+
+#malawi-map{
+    width: 10em;
+}
+#welcome-title{
+    align-items: center;
+}
+#card-prompt{
+    margin-top: -2em
+}
+
+.row_center{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 0.3em 0;
+}
+.row_break{
+    margin: 10em;
+}
+
+#scan-btn{
+    width: 15em;
+}
+
+#register-btn{
+    width: 20em;
+}
+.register-input{
+    width: 25em;
+    padding: 0.25em 0;
+}
+
+.pin-input{
+    width: 15em;
+}
+#pin-input::placeholder{
+    text-align: center;
+}
+#pin-input{
+    background-color: #D9D9D9;
+}
+
+#login_btn_pic{
+    width: 1.5em;
+}
+
+#email-img{
+    width: 1.5em;
+}
+#email_input,#password,#cpassword,#NID-input{
+    background-color: #D9D9D9;
+    border-left: 0.05em solid white;
+}
+
+.input-group-text{
+    background-color: #D9D9D9;
+}
+
+#code-input{
+    background-color: #D9D9D9;
+    width: 20em;
+}
+#code-input::placeholder{
+    text-align: center;
+}
+#reset-btn{
+    width: 20em;
+}
+
+#otp-btn{
+    width: 20em;
+}
+#otp-input{
+    background-color: #D9D9D9;
+    width: 20em;
+}
+#otp-input::placeholder{
+    text-align: center;
+}
