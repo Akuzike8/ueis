@@ -2,6 +2,7 @@ from flask import Flask, request, render_template
 from flask_cors import CORS
 from controllers.verify_qr import verifyQr
 from controllers.generate_qr import generateQr
+from controllers.token import generate_token,verify_token
 import json
 import os
 
@@ -39,5 +40,21 @@ def create_identity():
         else:
             return {'message':'failed to create identity','status':304}
 
+# JWT token Test route
+@app.route('/token', methods=['GET'])
+def generateToken():
+
+    # Example payload data
+    payload_data = "hey"
+
+    # Generate a JWT token
+    res = generate_token(payload_data)
+    jwt_token = res['token']
+
+    # Decode and verify the token
+    decoded_payload = verify_token(jwt_token)
+
+    print("Generated JWT Token:", jwt_token)
+    print("Decoded Payload:", decoded_payload)
 if __name__ == '__main__':
     app.run(debug=True)
