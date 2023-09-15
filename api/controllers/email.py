@@ -5,3 +5,5 @@ def sendEmailOTP(receiver):
     email_subject('UEIS Email functionality test')
     email_content('This is an example of sending emails with emaileasily')
     email_send('ueissystem@gmail.com','czlzzgoatysyoksf')
+
+sendEmailOTP('patrickhambeyani@gmail.com')

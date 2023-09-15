@@ -16,10 +16,7 @@ def verifyQr(code):
         # decoding digital signature
         raw = code
         #raw = json.loads(raw.decode())
-        print(raw)
         signature = bytes_to_long(b''.fromhex(raw['digital_signature'][2:]))
-        print(f'{pub.e =}')
-        print(f'{pub.n =}')
         decoded_signature = long_to_bytes(pow(signature,pub.e,pub.n))
 
         # calculating the hash digest
@@ -27,9 +24,6 @@ def verifyQr(code):
         del data['digital_signature']
         data = json.dumps(data).encode()
         hash_digest = SHA512.new(data).hexdigest().encode()
-
-        print(decoded_signature)
-        print(hash_digest)
 
         if (decoded_signature == hash_digest):
             return True
