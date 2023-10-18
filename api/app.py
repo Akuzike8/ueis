@@ -1,8 +1,5 @@
 from flask import Flask, request, render_template,session
 from flask_cors import CORS
-from controllers.verify_qr import verifyQr
-from controllers.generate_qr import generateQr
-from controllers.token import generate_token,verify_token
 from Crypto.PublicKey import RSA
 from Crypto.Util.number import long_to_bytes
 import json
@@ -18,6 +15,19 @@ app = Flask(__name__)
 app.secret_key = SECRET_KEY
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
+# Register Route blueprints
+from controllers.card import card
+app.register_blueprint(card)
+
+from controllers.fingerprint import fingerprint
+app.register_blueprint(fingerprint)
+
+from controllers.identity import identity
+app.register_blueprint(identity)
+
+from controllers.tokens import token
+app.register_blueprint(token)
+
 @app.route('/', methods=['GET'])
 def welcome():
     return render_template('index.html')
@@ -26,57 +36,9 @@ def welcome():
 def login():
     return render_template('login.html')
 
-# Scanning Page
-@app.route('/scan_card', methods=['POST'])
-def scan_card():
-    content_type = request.headers.get('Content-Type')
-    if (content_type == 'application/json'):
-        content = request.json
-        code = json.loads(content)
-       # status = verifyQr(code)
-        status = True
-
-        if(status == True):
-            return {'message':'successfully Authenticated identity','status':200}
-        else:
-            return {'message':'failed to Authenticate identity', 'status': 304}
-
-# Registering Page
-@app.route('/create_identity', methods=['POST'])
-def create_identity():
-    content_type = request.headers.get('Content-Type')
-    if (content_type == 'application/json'):
-        card = request.form.to_dict()
-        status = generateQr(card['nid'])
-
-        if (status == True):
-            return {'message':'successfully created identity','status': 200}
-        else:
-            return {'message':'failed to create identity','status':304}
-
-# JWT token generation route
-@app.route('/token', methods=['POST'])
-def generateToken():
-
-    # Example payload data
-    payload_data = request.json
-
-    # Generate a JWT token
-    res = generate_token(payload_data)
-    jwt_token = res
-    session['refreshToken'] = res['refresh_token']
-    return res
-
-# JWT token verification route
-@app.route('/token', methods=['GET'])
-def verifyToken():
-    auth_header = request.headers.get('Authorization')
-    mode, token = auth_header.split(" ")
-
-    # Decode and verify the token
-    decoded_payload = verify_token(token)
-
-    return decoded_payload
+@app.route('/fingerprint', methods=['GET'])
+def fingerprint():
+    return render_template('fingerprint_auth.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
